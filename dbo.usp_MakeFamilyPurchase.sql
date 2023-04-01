@@ -12,7 +12,7 @@ BEGIN
 	ELSE 
 		UPDATE dbo.Family
 		SET BudgetValue = BudgetValue - (SELECT SUM(bskt."Value")
-										 FROM dbo.Basket AS bskt
-										 WHERE bskt.ID_Family = dbo.Family.ID)
+						 FROM dbo.Basket AS bskt
+						 WHERE bskt.ID_Family = dbo.Family.ID)
 		WHERE SurName = @FamilySurName;
 END;
