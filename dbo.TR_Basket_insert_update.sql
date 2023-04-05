@@ -12,9 +12,9 @@ BEGIN
 			ELSE 0
 			END AS DiscountValue
 	  FROM inserted AS ins
-		  LEFT JOIN (SELECT ID_SKU
-					 FROM inserted
-					 GROUP BY ID_SKU
-					 HAVING COUNT(*) > 1) AS ins1 ON ins1.ID_SKU = ins.ID_SKU;;
+	     LEFT JOIN (SELECT ID_SKU
+			FROM inserted
+			GROUP BY ID_SKU
+			HAVING COUNT(*) > 1) AS ins1 ON ins1.ID_SKU = ins.ID_SKU;;
 END;
 
