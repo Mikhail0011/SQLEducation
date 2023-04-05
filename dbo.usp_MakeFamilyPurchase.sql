@@ -11,8 +11,10 @@ BEGIN
 		RAISERROR('No family found with this surname!', 10, 1)	
 	ELSE 
 		UPDATE dbo.Family
-		SET BudgetValue = BudgetValue - (SELECT SUM(bskt."Value")
-										 FROM dbo.Basket AS bskt
-										 WHERE bskt.ID_Family = dbo.Family.ID)
-		WHERE SurName = @FamilySurName;
+		SET BudgetValue = BudgetValue - bskt.famSum
+		FROM dbo.Family fml
+			INNER JOIN (SELECT ID_Family, SUM("Value") famSum
+						FROM dbo.Basket
+						GROUP BY ID_Family) AS bskt ON bskt.ID_Family = fml.ID
+		WHERE fml.SurName = @FamilySurName;
 END;
